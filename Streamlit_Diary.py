@@ -8,6 +8,10 @@ def display_topic_page():
     # List of pages inside the selected topic
     path = "summaries"
     page_files = [file for file in os.listdir(path) if file.startswith(st.session_state.selected_topic) and file.endswith(".txt")]
+
+    
+    # Debug: Print the list of page files
+    st.write("Debug - Page Files:", page_files)
     
     for page_name in page_files:
         if st.button(page_name[:-4]):  # Remove the file extension

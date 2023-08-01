@@ -1,0 +1,8 @@
+URL: https://medium.com/@gabrieltseng/gradient-boosting-and-xgboost-c306c1bcfaf5
+Summary: XGBoost is a powerful and fast machine learning library used in Kaggle competitions and beyond. This webpage aims to clarify concepts related to gradient boosting, gradient boosted trees, and XGBoost while exploring the hyperparameters exposed in the scikit-learn API.
+
+Gradient boosting optimizes both model parameters and the function that best approximates the data, allowing many simple models to be combined into an ensemble. Gradient boosted trees focus on using decision trees as simple models to improve performance. XGBoost stands out for its efficiency, achieved by reducing the search space of possible feature splits based on feature distributions.
+
+The webpage delves into four essential hyperparameters: n_estimators (controlled with early stopping), max_depth, learning rate, and reg_alpha/reg_lambda (L1/L2 regularization). By understanding and tuning these parameters, users can avoid overfitting and achieve better model performance.
+
+Overall, XGBoost offers an effective and efficient solution for gradient boosting, empowering users to build high-performing machine learning models with carefully optimized hyperparameters.

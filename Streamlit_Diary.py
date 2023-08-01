@@ -51,7 +51,10 @@ def display_add_summary_page():
         st.success("Summary added successfully!")
 
 # Home Page
-st.title("Web Summary Diary")
+st.title("My Data Science Diary!")
+st.markdown("by Francisco Bulhosa Ferreira")
+st.markdown("---") 
+st.markdown("Add New Summaries or search through the Topics!")
 if st.button("Add New Summary"):
     st.session_state.page = "add_summary"
 
@@ -76,5 +79,5 @@ elif st.session_state.page == "add_summary":
     display_add_summary_page()
 
 # Note
-st.markdown("---")  # Optional horizontal line
+st.markdown("---") 
 st.markdown("Note: All summaries are AI Generated.")

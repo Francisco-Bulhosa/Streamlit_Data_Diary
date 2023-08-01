@@ -11,7 +11,7 @@ def display_topic_page():
 
     
     # Debug: Print the list of page files
-    st.write("Debug - Page Files:", page_files)
+   ### st.write("Debug - Page Files:", page_files)
     
     for page_name in page_files:
         if st.button(page_name[:-4]):  # Remove the file extension
@@ -40,7 +40,7 @@ def display_add_summary_page():
     st.title("Add Web Summary")
     
     # Topics
-    topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials"]
+    topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials", "Interactive Sites"]
     selected_topic = st.selectbox("Select Topic:", topics)
     page_name = st.text_input("Enter Page Name:")
     url = st.text_input("Enter the URL:")
@@ -95,7 +95,7 @@ if st.button("Add New Summary"):
 
 # List of Topics
 st.header("Topics")
-topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials"]
+topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials", "Interactive Sites"]
 for topic in topics:
     if st.button(topic):
         st.session_state.page = "topic_page"

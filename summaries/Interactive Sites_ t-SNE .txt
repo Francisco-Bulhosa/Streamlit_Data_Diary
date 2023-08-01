@@ -1,0 +1,2 @@
+URL: https://distill.pub/2016/misread-tsne/
+Summary: How to Use t-SNE Effectively

@@ -1,0 +1,2 @@
+URL: https://medium.com/@ryanntk/choosing-the-right-embedding-model-a-guide-for-llm-applications-7a60180d28e3
+Summary: Optimizing LLM Applications with Vector Embeddings, affordable alternatives to OpenAI’s API and how we move from LlamaIndex to Langchain

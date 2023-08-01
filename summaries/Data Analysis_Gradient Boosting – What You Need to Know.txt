@@ -1,0 +1,3 @@
+URL: https://datascience.eu/machine-learning/gradient-boosting-what-you-need-to-know/
+Summary: 
+Gradient boosting is a popular and powerful machine learning technique that transforms weak learners into strong ones. It sequentially combines decision trees and adjusts weights to improve predictions. It relies on gradients in loss functions to determine weak learners' shortcomings. Gradient boosting is useful for various risk-related functions and addresses multicollinearity issues. It requires components like additive models, weak learners, and loss functions to function effectively. This technique has been successful in various machine learning applications and is widely used for predictive modeling in regression and classification tasks.

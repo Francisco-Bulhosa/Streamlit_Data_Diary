@@ -1,0 +1,8 @@
+URL: https://machinelearningmastery.com/a-gentle-introduction-to-the-bootstrap-method/#:~:text=The%20bootstrap%20method%20is%20a,sampling%20a%20dataset%20with%20replacement.&text=It%20is%20used%20in%20applied,included%20in%20the%20training%20data.
+Summary: The bootstrap method is a resampling technique used to estimate statistics on a population by sampling a dataset with replacement. It can be applied to estimate summary statistics, such as the mean or standard deviation. In machine learning, the bootstrap method is used to estimate the skill of machine learning models on data not included in the training set. It is particularly useful for estimating model skill with confidence intervals, which are not readily available with other methods like cross-validation.
+
+The bootstrap method involves iteratively resampling a dataset with replacement, and you need to choose the size of the sample and the number of repetitions. For each bootstrap sample, a model can be trained and evaluated on the out-of-bag samples (observations not included in the sample). The results from the bootstrap method often form a Gaussian distribution, allowing for the calculation of measures like standard deviation and confidence intervals.
+
+Scikit-learn provides a function called resample() to create a bootstrap sample of a dataset. However, it does not have a built-in mechanism to easily gather the out-of-bag observations for evaluation.
+
+The bootstrap method is a widely applicable and powerful statistical tool that helps estimate quantities and model skill with uncertainty. It is a useful technique for evaluating machine learning models and quantifying their performance.

@@ -1,0 +1,2 @@
+URL: https://www.davidsbatista.net/blog/2019/11/03/Portuguese-Embeddings/
+Summary: A kinda of old  list of embeddings model for Portuguese

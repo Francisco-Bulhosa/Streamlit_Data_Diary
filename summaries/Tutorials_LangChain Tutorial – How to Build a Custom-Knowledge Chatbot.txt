@@ -1,0 +1,2 @@
+URL: https://www.freecodecamp.org/news/langchain-how-to-create-custom-knowledge-chatbots/
+Summary: A small tutorial on how to get started with Langchain to create a Custom Chatobot

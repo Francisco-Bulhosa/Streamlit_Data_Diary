@@ -1,0 +1,2 @@
+URL: https://www.youtube.com/watch?v=SqcY0GlETPk&ab_channel=ProgrammingwithMosh
+Summary: React JS Tutorial for Beginners - Learn React 18 with TypeScript and build awesome frontend app! 

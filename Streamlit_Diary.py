@@ -34,6 +34,12 @@ def display_summary_page():
     if st.button("Edit Summary"):
         st.session_state.page = "edit_summary"
 
+    # Delete button
+    if st.button("Delete Summary"):
+        os.remove(file_path)  # Delete the file
+        st.success("Summary deleted successfully!")
+        st.session_state.page = "topic_page"  # Redirect back to the topic page
+
 
 # Function to display the add summary page
 def display_add_summary_page():
@@ -62,10 +68,11 @@ def display_add_summary_page():
 
 
 def display_edit_summary_page():
-    st.title(f"Edit Summary: {st.session_state.selected_page}")
+    st.title(f"Edit Summary: {st.session_state.selected_page[:-4]}")
     
     # Reading the existing summary
-    file_path = f"summaries/{st.session_state.selected_topic}/{st.session_state.selected_page}.txt"
+    file_path = f"summaries/{st.session_state.selected_page}"
+
     with open(file_path, "r") as file:
         lines = file.readlines()
         url = lines[0].strip().split(": ")[1]

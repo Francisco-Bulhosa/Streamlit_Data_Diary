@@ -1,4 +1,4 @@
-# Streamlit_Data_Diary
+# Streamlit Data Diary
 
 A Streamlit Diary where I regularly add new information on topics that interest me in the broad field of Data Science!
 

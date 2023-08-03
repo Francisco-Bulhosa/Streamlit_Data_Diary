@@ -95,88 +95,39 @@ def display_edit_summary_page():
 
 
 
-# Function to display the graphic diary page
-def display_graphic_diary_page():
-    # Display Images
-    st.title("Graphic Diary")
-
-    # Display Images
-    st.header("Gallery")
-    image_directory = "graphic_diary"
-    image_files = [file for file in os.listdir(image_directory) if file.endswith(('.png', '.jpg', '.jpeg'))]
-
-    for image_file in image_files:
-        image_path = f"{image_directory}/{image_file}"
-        caption = metadata.get(image_file, {}).get("caption", "")
-        category = metadata.get(image_file, {}).get("category", "")
-
-        # Display the image with caption, category, and delete option
-        st.image(image_path, caption=f"{caption} (Category: {category})", use_column_width=True)
-
-        # Edit caption and category
-        new_caption = st.text_input(f"Edit caption for {image_file}:", value=caption)
-        new_category = st.text_input(f"Edit category for {image_file}:", value=category)
-        if st.button(f"Save Changes for {image_file}"):
-            metadata[image_file] = {"caption": new_caption, "category": new_category}
-            with open(metadata_file, "w") as file:
-                json.dump(metadata, file)
-            st.success(f"Changes for {image_file} saved successfully!")
-
-        # Delete button
-        if st.button(f"Delete {image_file}"):
-            os.remove(image_path)
-            metadata.pop(image_file, None)  # Remove metadata entry
-            with open(metadata_file, "w") as file:
-                json.dump(metadata, file)
-            st.success(f"Image {image_file} deleted successfully!")
-
-
 # Function to display the search results page
 def display_search_results_page():
     st.title(f"Search Results for: {st.session_state.search_query}")
 
     # Search through topics and pages
-    st.header("Topic and Page Search Results:")
     path_to_summaries = "summaries"
-    for topic in os.listdir(path_to_summaries):
-        topic_path = os.path.join(path_to_summaries, topic)
-        if os.path.isdir(topic_path):
-            for page_file in os.listdir(topic_path):
-                if page_file.endswith(".txt"):
-                    page_path = os.path.join(topic_path, page_file)
-                    with open(page_path, 'r') as file:
-                        content = file.read()
-                        if st.session_state.search_query.lower() in content.lower():
-                            page_name = page_file[:-4] # Remove .txt extension
-                            st.write(f"Found in topic: {topic}, page: {page_name}")
+    results = []
 
-    # Search through images (implement based on your graphic diary page structure)
+    for topic_file in os.listdir(path_to_summaries):
+        if topic_file.endswith(".txt"):
+            with open(os.path.join(path_to_summaries, topic_file), 'r') as file:
+                content = file.read()
+                if st.session_state.search_query.lower() in content.lower():
+                    page_name = topic_file[:-4]  # Remove .txt extension
+                    results.append((page_name, topic_file))
+
+    # Display results
+    st.header("Search Results:")
+    for page_name, topic_file in results:
+        if st.button(page_name):  # Display the results as buttons
+            st.session_state.page = "summary_page"
+            st.session_state.selected_page = topic_file
 
 
 
-    # Upload Image
-def upload_image():
-    uploaded_image = st.file_uploader("Upload an image:", type=["jpg", "png", "jpeg"])
-    if uploaded_image:
-        # Save the uploaded image to a directory
-        image_path = f"graphic_diary/{uploaded_image.name}"
-        with open(image_path, "wb") as file:
-            file.write(uploaded_image.read())
-        st.success(f"Image {uploaded_image.name} uploaded successfully!")
 
-    # Load metadata (captions and categories)
-    metadata_file = "graphic_diary/metadata.json"
-    if os.path.exists(metadata_file):
-        with open(metadata_file, "r") as file:
-            metadata = json.load(file)
-    else:
-        metadata = {}
+
+
 
 
 # Home Page
 
 search_query = st.text_input("Search:")
-
 
 # Create a left column for navigation
 left_column = st.sidebar
@@ -194,14 +145,10 @@ if left_column.button("Home"):
 left_column.header("Navigation")
 if left_column.button("Add New Summary"):
     st.session_state.page = "add_summary"
-if left_column.button("Upload Image"):
-    st.session_state.page = "upload_image"
-    st.header("Upload an Image to Graphic Diary")
-    upload_image()  # Call the upload_image function
 
 # List of Topics in left column
 left_column.header("Topics")
-topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials", "Interactive Sites", "Gallery"]
+topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials", "Interactive Sites"]
 for topic in topics:
     if left_column.button(topic):
         st.session_state.page = "topic_page"
@@ -224,8 +171,6 @@ elif st.session_state.page == "add_summary":
     display_add_summary_page()
 elif st.session_state.page == "edit_summary":
     display_edit_summary_page()
-elif st.session_state.page == "graphic_diary":
-    display_graphic_diary_page()
 elif st.session_state.page == "search_results":
     display_search_results_page()
 

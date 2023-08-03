@@ -44,7 +44,6 @@ The Data Diary is a Streamlit-based web application that allows users to create,
 
 Please make sure to create the following directories within the project directory:
 - **summaries**: to store the summary files
-- **graphic_diary**: to store the images and metadata
 
 You may also adjust the code to your preferred directory structure.
 

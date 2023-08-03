@@ -1,0 +1,2 @@
+URL: https://projector.tensorflow.org/
+Summary: Using the TensorBoard Embedding Projector, you can graphically represent high dimensional embeddings. This can be helpful in visualizing, examining, and understanding your embedding layers.

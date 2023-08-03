@@ -1,5 +1,7 @@
 import streamlit as st
 import os
+import shutil
+import json
 
 # Function to display the topic page
 def display_topic_page():
@@ -92,24 +94,111 @@ def display_edit_summary_page():
         st.session_state.page = "summary_page"  # Redirect back to the summary page
 
 
+
+# Function to display the graphic diary page
+def display_graphic_diary_page():
+    st.title("Graphic Diary")
+
+    # Upload Image
+    uploaded_image = st.file_uploader("Upload an image:", type=["jpg", "png", "jpeg"])
+    if uploaded_image:
+        # Save the uploaded image to a directory
+        image_path = f"graphic_diary/{uploaded_image.name}"
+        with open(image_path, "wb") as file:
+            file.write(uploaded_image.read())
+        st.success(f"Image {uploaded_image.name} uploaded successfully!")
+
+    # Load metadata (captions and categories)
+    metadata_file = "graphic_diary/metadata.json"
+    if os.path.exists(metadata_file):
+        with open(metadata_file, "r") as file:
+            metadata = json.load(file)
+    else:
+        metadata = {}
+
+# Function to display the search results page
+def display_search_results_page():
+    st.title(f"Search Results for: {st.session_state.search_query}")
+
+    # Search through topics and pages
+    st.header("Topic and Page Search Results:")
+    path_to_summaries = "summaries"
+    for topic in os.listdir(path_to_summaries):
+        topic_path = os.path.join(path_to_summaries, topic)
+        if os.path.isdir(topic_path):
+            for page_file in os.listdir(topic_path):
+                if page_file.endswith(".txt"):
+                    page_path = os.path.join(topic_path, page_file)
+                    with open(page_path, 'r') as file:
+                        content = file.read()
+                        if st.session_state.search_query.lower() in content.lower():
+                            page_name = page_file[:-4] # Remove .txt extension
+                            st.write(f"Found in topic: {topic}, page: {page_name}")
+
+    # Search through images (implement based on your graphic diary page structure)
+    # ...
+
+    # Display Images
+    st.header("Gallery")
+    image_directory = "graphic_diary"
+    image_files = [file for file in os.listdir(image_directory) if file.endswith(('.png', '.jpg', '.jpeg'))]
+
+    for image_file in image_files:
+        image_path = f"{image_directory}/{image_file}"
+        caption = metadata.get(image_file, {}).get("caption", "")
+        category = metadata.get(image_file, {}).get("category", "")
+
+        # Display the image with caption, category, and delete option
+        st.image(image_path, caption=f"{caption} (Category: {category})", use_column_width=True)
+
+        # Edit caption and category
+        new_caption = st.text_input(f"Edit caption for {image_file}:", value=caption)
+        new_category = st.text_input(f"Edit category for {image_file}:", value=category)
+        if st.button(f"Save Changes for {image_file}"):
+            metadata[image_file] = {"caption": new_caption, "category": new_category}
+            with open(metadata_file, "w") as file:
+                json.dump(metadata, file)
+            st.success(f"Changes for {image_file} saved successfully!")
+
+        # Delete button
+        if st.button(f"Delete {image_file}"):
+            os.remove(image_path)
+            metadata.pop(image_file, None)  # Remove metadata entry
+            with open(metadata_file, "w") as file:
+                json.dump(metadata, file)
+            st.success(f"Image {image_file} deleted successfully!")
+
+
 # Home Page
-st.title("My Data Science Diary!")
-st.markdown("by Francisco Bulhosa Ferreira")
-st.markdown("---") 
-st.markdown("Add New Summaries or search through the Topics!")
-if st.button("Add New Summary"):
+
+search_query = st.text_input("Search:")
+
+# Create a left column for navigation
+left_column = st.sidebar
+left_column.title("My Data Science Diary!")
+left_column.markdown("by Francisco Bulhosa Ferreira")
+left_column.markdown("---")
+if search_query:
+    st.session_state.page = "search_results"
+    st.session_state.search_query = search_query
+
+left_column.header("Navigation")
+if left_column.button("Add New Summary"):
     st.session_state.page = "add_summary"
 
-# List of Topics
-st.header("Topics")
+# List of Topics in left column
+left_column.header("Topics")
 topics = ["Data Analysis", "Deep Learning", "Generative AI", "Tutorials", "Interactive Sites"]
 for topic in topics:
-    if st.button(topic):
+    if left_column.button(topic):
         st.session_state.page = "topic_page"
         st.session_state.selected_topic = topic
 
+# Note at the bottom of the left side content
+left_column.markdown("---")
+left_column.markdown("Note: All summaries are AI Generated.")
 
-# Navigation between pages
+# Navigation between pages (right side content)
 if "page" not in st.session_state:
     st.session_state.page = "home_page"
 
@@ -119,9 +208,10 @@ elif st.session_state.page == "summary_page":
     display_summary_page()
 elif st.session_state.page == "add_summary":
     display_add_summary_page()
-elif st.session_state.page == "edit_summary":  
+elif st.session_state.page == "edit_summary":
     display_edit_summary_page()
+elif st.session_state.page == "graphic_diary":
+    display_graphic_diary_page()
+elif st.session_state.page == "search_results":
+    display_search_results_page()
 
-# Note
-st.markdown("---") 
-st.markdown("Note: All summaries are AI Generated.")

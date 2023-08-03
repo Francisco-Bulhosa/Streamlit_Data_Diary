@@ -1,4 +1,4 @@
-# Francisco_Bulhosa_Data_Diary
+# Streamlit_Data_Diary
 
 A Streamlit Diary where I regularly add new information on topics that interest me in the broad field of Data Science!
 
@@ -27,10 +27,10 @@ The Data Diary is a Streamlit-based web application that allows users to create,
 ## How to Run
 
 1. Clone the repository:
-   git clone https://github.com/your-username/Data_Diary.git
+   git clone https://github.com/your-username/Streamlit_Data_Diary.git
 
 2. Navigate to the project directory:
-   cd Data_Diary
+   cd Streamlit_Data_Diary
 
 3. Install the required dependencies:
    pip install streamlit

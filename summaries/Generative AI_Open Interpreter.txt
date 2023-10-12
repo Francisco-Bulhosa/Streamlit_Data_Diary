@@ -1,0 +1,2 @@
+URL: https://github.com/KillianLucas/open-interpreter
+Summary: An open-source, locally running implementation of OpenAI's Code Interpreter.

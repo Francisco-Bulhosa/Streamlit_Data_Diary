@@ -1,0 +1,2 @@
+URL: https://facebook.github.io/prophet/docs/quick_start.html#python-api
+Summary: Facebook's Prophet is a forecasting algorithm designed specifically for time series data.

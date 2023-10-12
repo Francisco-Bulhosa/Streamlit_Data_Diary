@@ -1,0 +1,2 @@
+URL: https://github.com/cyborg-ai-ch/CvT-tf/blob/master/README.md
+Summary: Convolutions to Vision Transformers (CvT) into Tensorflow Version

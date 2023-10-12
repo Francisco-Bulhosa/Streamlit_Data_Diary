@@ -1,0 +1,2 @@
+URL: https://codepal.ai/code-explainer
+Summary: Get an extensive explanation of any piece of code.
